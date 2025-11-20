@@ -1,4 +1,4 @@
-name: Deploy PWA (connect-with-cometchat) to Hostinger (staging)
+name: Deploy Chatter (connect-with-cometchat) to Hostinger (staging)
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-and-deploy-pwa:
+  build-and-deploy-Chatter:
     runs-on: ubuntu-latest
 
     env:
@@ -47,7 +47,7 @@ jobs:
           npm i
         shell: bash
 
-      - name: Build PWA
+      - name: Build Chatter
         working-directory: ./   # change if app lives in a subfolder
         run: |
           # cd ./pwa   # uncomment if PWA is in a subfolder
@@ -115,5 +115,5 @@ jobs:
       - name: Finalize & mark pipeline passed
         run: |
           echo "Build pushed to $USER@$HOST:$TARGET_BUILD_PATH"
-          echo "PWA deployment pipeline passed."
+          echo "Chatter deployment pipeline passed."
         shell: bash
