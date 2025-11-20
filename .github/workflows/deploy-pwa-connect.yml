@@ -44,7 +44,7 @@ jobs:
         run: |
           # if your PWA is in a subfolder (e.g. ./pwa) change into it:
           # cd ./pwa
-          npm i
+          npm ci
         shell: bash
 
       - name: Build PWA
