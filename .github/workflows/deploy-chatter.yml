@@ -1,0 +1,241 @@
+# name: Deploy Chatter (connect-with-cometchat) to Hostinger (staging)
+
+# on:
+#   push:
+#     branches: [staging]
+#   workflow_dispatch:
+
+# jobs:
+#   build-and-deploy-Chatter:
+#     runs-on: ubuntu-latest
+
+#     env:
+#       # Host connection (keep host and user safe if you want them as secrets, here shown inline for parity)
+#       HOST: 109.106.254.234
+#       USER: u689060721
+#       # This secret should contain the **base64 single-line** of the private key (cat id_rsa | base64 | tr -d '\n')
+#       KEY_B64: ${{ secrets.HOSTINGER_SSH_KEY }}
+#       # SSH port (string)
+#       PORT_SECRET: "65002"
+#       #   ld will be copied
+#       TARGET_BUILD_PATH: /home/u689060721/domains/lightsteelblue-dolphin-977863.hostingersite.com/public_html/wp-content/plugins/connect-with-cometchat/build
+
+#     steps:
+#       - name: Checkout repository
+#         uses: actions/checkout@v4
+#         with:
+#           fetch-depth: 0
+
+#       - name: List repo files (verify)
+#         run: |
+#           echo "Repo root contents:"
+#           ls -lah
+#           echo "Project dirs:"
+#           ls -lah ./ || true
+
+#       - name: Setup Node.js 21
+#         uses: actions/setup-node@v4
+#         with:
+#           node-version: '21'
+#           cache: 'npm'
+
+#       - name: Install dependencies
+#         working-directory: ./   # change if your react app is in a subfolder
+#         run: |
+#           # if your PWA is in a subfolder (e.g. ./pwa) change into it:
+#           # cd ./pwa
+#           npm i
+#         shell: bash
+
+#       - name: Build Chatter
+#         working-directory: ./   # change if app lives in a subfolder
+#         run: |
+#           # cd ./pwa   # uncomment if PWA is in a subfolder
+#           CI=false npm run build
+#           echo "Build done. Showing build folder:"
+#           ls -lah ./build || ls -lah ./dist || echo "No build/ or dist/ folder found"
+#         shell: bash
+
+#       - name: Validate secrets & compute SSH port
+#         run: |
+#           if [ -z "$KEY_B64" ]; then
+#             echo "ERROR: HOSTINGER_SSH_KEY secret missing or empty"
+#             exit 1
+#           fi
+#           if [ -z "$HOST" ] || [ -z "$USER" ]; then
+#             echo "ERROR: HOST or USER env missing"
+#             exit 1
+#           fi
+#           PORT="${PORT_SECRET:-65002}"
+#           echo "SSH port set to: $PORT"
+#           echo "SSH_PORT=$PORT" >> $GITHUB_ENV
+#         shell: bash
+
+#       - name: Decode private key, start ssh-agent and add host key
+#         run: |
+#           set -euo pipefail
+#           mkdir -p ~/.ssh
+#           CLEAN_B64=$(printf '%s' "$KEY_B64" | tr -d '\r')
+#           # quick base64 sanity check
+#           if ! printf '%s' "$CLEAN_B64" | grep -Eq '^[A-Za-z0-9+/]+={0,2}$'; then
+#             echo "ERROR: HOSTINGER_SSH_KEY is not valid base64. Recreate with: cat id_rsa | base64 | tr -d '\n'"
+#             exit 1
+#           fi
+#           printf '%s' "$CLEAN_B64" | base64 --decode > ~/.ssh/id_rsa
+#           chmod 600 ~/.ssh/id_rsa
+#           eval "$(ssh-agent -s)"
+#           ssh-add ~/.ssh/id_rsa
+#           # record host key for the custom port
+#           ssh-keyscan -p "$SSH_PORT" -H "$HOST" >> ~/.ssh/known_hosts || true
+#           echo "SSH key loaded and known_hosts updated for $HOST:$SSH_PORT"
+#         shell: bash
+
+#       - name: Ensure remote target directory exists
+#         run: |
+#           ssh -p "$SSH_PORT" -o StrictHostKeyChecking=no "$USER@$HOST" "mkdir -p '$TARGET_BUILD_PATH' && echo 'remote path ensured: $TARGET_BUILD_PATH'"
+#         shell: bash
+
+#       - name: Rsync build folder to remote (connect-with-cometchat)
+#         run: |
+#           # if your built folder is `build/` in repo root — use that. If it's somewhere else, update the source path.
+#           SOURCE_BUILD="./build/"
+#           if [ ! -d "$SOURCE_BUILD" ]; then
+#             echo "Build folder $SOURCE_BUILD not found — aborting."
+#             ls -lah
+#             exit 1
+#           fi
+#           # use ssh custom port for rsync
+#           RSYNC_SSH="ssh -p $SSH_PORT -o StrictHostKeyChecking=no"
+#           rsync -e "$RSYNC_SSH" -avz --delete \
+#             --exclude='.git' \
+#             --exclude='node_modules' \
+#             "$SOURCE_BUILD" "$USER@$HOST:$TARGET_BUILD_PATH/"
+#         shell: bash
+
+#       - name: Finalize & mark pipeline passed
+#         run: |
+#           echo "Build pushed to $USER@$HOST:$TARGET_BUILD_PATH"
+#           echo "Chatter deployment pipeline passed."
+#         shell: bash
+
+
+name: Build & Deploy PWA (staging/production)
+
+on:
+  push:
+    branches: [staging, production]
+  workflow_dispatch:
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    env:
+      HOST: ${{ secrets.HOSTINGER_HOST }} # same for both staging and production
+      USER: ${{ secrets.HOSTINGER_USER }} # same for both staging and production
+      KEY_B64: ${{ secrets.HOSTINGER_SSH_KEY }} # same for both staging and production
+      DEFAULT_SSH_PORT: ${{ secrets.HOSTINGER_SSH_PORT }} # same for both staging and production
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Determine branch-specific paths & secrets
+        id: vars
+        run: |
+          BRANCH="${GITHUB_REF#refs/heads/}"
+          echo "branch=$BRANCH" >> "$GITHUB_OUTPUT"
+
+          if [ "$BRANCH" = "staging" ]; then
+            TARGET_PATH="${{ secrets.HOSTINGER_STAGING_TARGET_PATH }}"
+            PWA_ENV_B64="${{ secrets.PWA_ENV_B64_STAGING }}"
+            SSH_PORT="${{ secrets.HOSTINGER_SSH_PORT_STAGING || secrets.DEFAULT_SSH_PORT || secrets.HOSTINGER_SSH_PORT }}"
+          elif [ "$BRANCH" = "production" ]; then
+            TARGET_PATH="${{ secrets.HOSTINGER_PRODUCTION_TARGET_PATH }}"
+            PWA_ENV_B64="${{ secrets.PWA_ENV_B64_PRODUCTION }}"
+            SSH_PORT="${{ secrets.HOSTINGER_SSH_PORT_PRODUCTION || secrets.DEFAULT_SSH_PORT || secrets.HOSTINGER_SSH_PORT }}"
+          else
+            echo "ERROR: unsupported branch: $BRANCH"
+            exit 1
+          fi
+
+          echo "target_path=$TARGET_PATH" >> "$GITHUB_OUTPUT"
+          echo "pwa_env_b64=$PWA_ENV_B64" >> "$GITHUB_OUTPUT"
+          echo "ssh_port=${SSH_PORT:-65002}" >> "$GITHUB_OUTPUT"
+
+      - name: Decode .env from secret
+        run: |
+          ENV_B64="${{ steps.vars.outputs.pwa_env_b64 }}"
+          if [ -z "$ENV_B64" ]; then
+            echo "ERROR: Missing branch-specific .env secret!"
+            exit 1
+          fi
+          CLEAN_ENV_B64=$(printf '%s' "$ENV_B64" | tr -d '\r')
+          if ! printf '%s' "$CLEAN_ENV_B64" | grep -Eq '^[A-Za-z0-9+/]+={0,2}$'; then
+            echo "ERROR: PWA_ENV_B64 contains invalid base64 characters."
+            exit 1
+          fi
+          printf '%s' "$CLEAN_ENV_B64" | base64 --decode > .env
+          chmod 600 .env
+          echo ".env created."
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "21"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: |
+          test -f .env || (echo ".env missing; aborting" && exit 1)
+          npm ci
+
+      - name: Build PWA
+        run: |
+          CI=false npm run build
+          ls -lah dist || (echo "dist/ not found" && exit 1)
+
+      - name: Prepare SSH key & known_hosts
+        run: |
+          mkdir -p ~/.ssh
+          CLEAN_B64=$(printf '%s' "${{ env.KEY_B64 }}" | tr -d '\r')
+          printf '%s' "$CLEAN_B64" | base64 --decode > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          eval "$(ssh-agent -s)"
+          ssh-add ~/.ssh/id_rsa
+          SSH_PORT="${{ steps.vars.outputs.ssh_port }}"
+          # ensure host is known for given port
+          ssh-keyscan -p "$SSH_PORT" -H "${{ env.HOST }}" >> ~/.ssh/known_hosts || true
+          echo "SSH prepared (port=$SSH_PORT)."
+
+      - name: Ensure remote target directory exists
+        run: |
+          SSH_PORT="${{ steps.vars.outputs.ssh_port }}"
+          TARGET="${{ steps.vars.outputs.target_path }}"
+          if [ -z "$TARGET" ]; then
+            echo "ERROR: TARGET_BUILD_PATH is empty; did you set HOSTINGER_*_TARGET_PATH secrets?"
+            exit 1
+          fi
+          ssh -p "$SSH_PORT" -o StrictHostKeyChecking=no "${{ env.USER }}@${{ env.HOST }}" \
+            "mkdir -p '$TARGET' && echo 'Ensured: $TARGET'"
+
+      - name: Rsync dist → remote (deploy)
+        run: |
+          SSH_PORT="${{ steps.vars.outputs.ssh_port }}"
+          TARGET="${{ steps.vars.outputs.target_path }}"
+          RSYNC_SSH="ssh -p $SSH_PORT -o StrictHostKeyChecking=no"
+          rsync -e "$RSYNC_SSH" -avz --delete ./dist/ "${{ env.USER }}@${{ env.HOST }}:$TARGET/"
+
+      - name: Cleanup runner
+        run: |
+          shred -u .env || rm -f .env || true
+          rm -f ~/.ssh/id_rsa || true
+
+      - name: Deployment complete
+        run: |
+          echo "PWA deployed to ${{ env.USER }}@${{ env.HOST }}:${{ steps.vars.outputs.target_path }} (branch: ${{ steps.vars.outputs.branch }})"
