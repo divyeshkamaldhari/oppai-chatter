@@ -18,7 +18,7 @@ jobs:
       # SSH port (string)
       PORT_SECRET: "65002"
       #   ld will be copied
-      TARGET_BUILD_PATH: /home/u689060721/domains/lightsteelblue-dolphin-977863.hostingersite.com/public_html/wp-content/plugins/connect-with-cometchat
+      TARGET_BUILD_PATH: /home/u689060721/domains/lightsteelblue-dolphin-977863.hostingersite.com/public_html/wp-content/plugins/connect-with-cometchat/build
 
     steps:
       - name: Checkout repository
