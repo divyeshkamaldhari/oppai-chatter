@@ -1,0 +1,100 @@
+/* Disable CometChat Sound Styles */
+
+/* Hide any sound/audio related elements */
+audio {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    volume: 0 !important;
+    muted: true !important;
+}
+
+/* Hide sound toggle buttons if any */
+button[aria-label*="sound"],
+button[title*="sound"],
+button[aria-label*="Sound"],
+button[title*="Sound"],
+button[aria-label*="audio"],
+button[title*="audio"],
+button[aria-label*="Audio"],
+button[title*="Audio"],
+.sound-toggle,
+.audio-toggle,
+.notification-sound,
+.sound-button,
+.audio-button {
+    display: none !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+}
+
+/* Disable any sound icons */
+.cometchat-icon--sound,
+.cometchat-sound-icon,
+[class*="sound-icon"],
+[class*="Sound-icon"],
+[class*="audio-icon"],
+[class*="Audio-icon"],
+[class*="notification-sound"],
+[class*="notification-audio"] {
+    display: none !important;
+    visibility: hidden !important;
+}
+
+/* Mute any embedded audio elements */
+audio,
+video {
+    volume: 0 !important;
+    muted: true !important;
+    display: none !important;
+}
+
+/* Ensure notification sounds are disabled */
+.cometchat-notification-sound,
+.notification-audio,
+[class*="notification"][class*="sound"],
+[class*="Notification"][class*="Sound"],
+[class*="ring"],
+[class*="Ring"],
+[class*="beep"],
+[class*="Beep"],
+[class*="chime"],
+[class*="Chime"] {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+}
+
+/* Global audio control */
+* {
+    --audio-volume: 0 !important;
+    --notification-sound: none !important;
+}
+
+/* CometChat specific sound disabling */
+.cometchat-message-sound,
+.cometchat-incoming-sound,
+.cometchat-outgoing-sound,
+.cometchat-typing-sound,
+.cometchat-call-sound,
+[class*="cometchat"][class*="sound"] {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+}
+
+/* Disable any Web Audio API related elements */
+[class*="oscillator"],
+[class*="Oscillator"],
+[class*="gain"],
+[class*="Gain"] {
+    display: none !important;
+}
+
+/* Disable media elements that might produce sound */
+object[type*="audio"],
+embed[type*="audio"],
+iframe[src*="audio"] {
+    display: none !important;
+    visibility: hidden !important;
+} 

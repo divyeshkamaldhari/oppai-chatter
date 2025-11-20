@@ -1,0 +1,226 @@
+.messages-wrapper .cometchat-message-list {
+    background: var(--cometchat-background-color-03, #F5F5F5);
+}
+
+.messages-wrapper .cometchat-list__body::-webkit-scrollbar,
+.messages-wrapper .cometchat-list__body::-webkit-scrollbar-thumb {
+    display: none;
+}
+
+.bubble-view.bubble-view__incoming.subscriber .bubble-view__content{
+    background-color: #5217BA !important;
+    color: #fff !important;
+}
+
+.bubble-view.bubble-view__incoming.waifu .bubble-view__content{
+    background-color: #381D67 !important;
+    color: #fff !important;
+}
+.messages-wrapper .cometchat-header__info {
+    -webkit-mask: url("../../assets/infoIcon.svg") center center no-repeat;
+    background: var(--cometchat-icon-color-primary, #141414);
+    -webkit-mask-size: contain;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+}
+.messages-wrapper .message-composer-blocked{
+    display: flex;
+width: 100%;
+height: 48px;
+padding: var(--cometchat-padding-3, 12px) var(--cometchat-padding-5, 20px);
+flex-direction: column;
+justify-content: center;
+align-items: center;
+gap: var(--cometchat-padding-1, 4px);
+flex-shrink: 0;
+background: var(--cometchat-background-color-04, #E8E8E8);
+}
+.messages-wrapper .message-composer-blocked__text{
+    color: var(--cometchat-text-color-secondary, #727272);
+font:var(--cometchat-font-body-regular);
+}
+.messages-wrapper .message-composer-blocked__text > a{
+    text-decoration: underline;
+    text-decoration-color: var(--cometchat-primary-color);
+    cursor: pointer;
+    color: var(--cometchat-primary-color);;
+}
+.messages-wrapper .cometchat-header__info:hover {
+    background: var(--cometchat-icon-color-highlight);
+}
+
+.messages-wrapper .cometchat-message-header__menu {
+    gap: 16px;
+}
+
+.cometchat-message-composer .cometchat-message-composer__input + div {
+	position: absolute;
+	right: 12px;
+	/* top: 5px; */
+	padding: 0 !important;
+}
+.cometchat-message-composer {
+	position: relative;
+}
+div.cometchat-message-composer div:not([class]) .cometchat-message-composer__send-button .cometchat-button .cometchat-button__icon {
+	background-color: #1CBD43;
+}
+div.cometchat-message-composer .cometchat-message-composer__send-button {
+	background: #1CBD4340;
+	border-radius: 4px;
+    margin-left: 36px;
+}
+.cometchat-message-composer .cometchat-message-composer__input {
+	padding-right: 140px;
+}
+
+
+.messages-wrapper .cometchat-message-composer {
+    margin: 0px 8px 8px 8px;
+    width: auto;
+    height: auto;
+}
+
+.messages-wrapper .cometchat-message-list__shimmer {
+    background: var(--cometchat-background-color-03, #F5F5F5);
+}
+
+.cometchat-header-wrapper {
+    height: 64px;
+    width: 100%;
+    flex-basis: auto;
+}
+
+.cometchat-message-list-wrapper {
+    width: 100%;
+    height: 100%;
+    flex-basis: auto;
+    overflow: auto;
+}
+
+.cometchat-message-list-wrapper>.cometchat {
+    height: 100%;
+    overflow: auto;
+}
+
+/* Slack-like pill style for date separators and sticky date header */
+.cometchat-message-list-wrapper [class*="date-separator"],
+.cometchat-message-list-wrapper [class*="sticky-date"],
+.cometchat-message-list-wrapper .cometchat-date-separator,
+.cometchat-message-list-wrapper .cometchat-sticky-date {
+    display: inline-block;
+    background: #2b2f36;
+    color: #ffffff;
+    padding: 4px 12px;
+    border-radius: 9999px;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 1;
+}
+
+/* Center the separator in the list; handle various wrapper names */
+.cometchat-message-list-wrapper [class*="date-separator"],
+.cometchat-message-list-wrapper .cometchat-date-separator {
+    margin: 12px auto;
+}
+
+/* Ensure sticky header stays visible while scrolling */
+.cometchat-message-list-wrapper [class*="sticky-date"],
+.cometchat-message-list-wrapper .cometchat-sticky-date {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    margin: 8px auto;
+}
+
+/* Custom top sticky pill (always visible when computed) */
+.sticky-date-pill {
+    position: sticky;
+    top: 0;
+    z-index: 3;
+    display: inline-block;
+    margin: 8px auto;
+    background: #2b2f36;
+    color: #ffffff;
+    padding: 6px 14px;
+    border-radius: 9999px;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 1;
+    max-width: max-content;
+}
+
+.cometchat-composer-wrapper {
+    width: 100%;
+    height: fit-content;
+    flex-basis: auto;
+    background: #130C1E;
+}
+
+.cometchat-messages-wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: var(--cometchat-background-color-03, #F5F5F5);
+    overflow: hidden;
+}
+
+.messages-wrapper .cometchat-list__header {
+    border-right: none;
+}
+
+@media (max-width: 768px) {
+    .cometchat-messages-wrapper {
+        width: 100vw;
+        position: fixed;
+        top: 0px;
+        left: 0px;
+        z-index: 3;
+    }
+
+    .cometchat-message-composer .cometchat-message-composer__input + div {
+        position: absolute;
+        right: 12px;
+        top: 5px;
+        padding: 0 !important;
+    }
+}
+@media (max-width: 767px) {
+    .cometchat-message-composer .cometchat-message-composer__input {
+        padding-right: 58px;
+    }
+}
+
+.cometchat-message-composer__secondary-button-view-attachment-button-0{
+    display: none !important;
+}
+
+/* .cometchat-list__body.subscriber-list-body {
+    background-image: url('../../assets/ChatWallpaperMobile.jpg');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 100% 100%;
+    background-attachment: fixed;
+    min-height: 100vh;
+    width: 100%;
+} */
+@media (max-width: 767px) {
+    .cometchat-list__body.subscriber-list-body {
+        background-image: url('../../assets/ChatWallpaperMobile.jpg');
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: 100% 100%;
+        background-attachment: fixed;
+        min-height: 100vh;
+        width: 100%;
+    }
+    .cometchat-message-composer__emoji-keyboard-button .cometchat-popover__content {
+        height: 300px;
+        width: 300px;
+        overflow: hidden;
+    }
+}

@@ -1,0 +1,15 @@
+.cometchat-message-composer .cometchat-message-composer__input {
+  font-family: "SF Pro";
+}
+
+.cometchat-message-composer .cometchat-button .cometchat-button__icon {
+  background: #CE2A42;
+}
+
+.cometchat-message-composer .cometchat-message-composer__send-button {
+  background: #1CBD43;
+}
+
+.cometchat-message-header .cometchat-avatar__text {
+  /* font-family: "SF Pro"; */
+}

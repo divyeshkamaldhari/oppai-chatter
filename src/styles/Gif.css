@@ -1,0 +1,9 @@
+.gifin {
+  width: 100%;
+  background-color: #272727;
+  border: 1px solid #272727;
+  color: white;
+  padding: 6px 12px;
+  margin-bottom: 8px;
+  border-radius: 60px !important;
+}

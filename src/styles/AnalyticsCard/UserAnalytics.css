@@ -1,0 +1,357 @@
+/* Container */
+.user-analytics {
+	max-width: calc(100% - 40px);
+	padding: 24px;
+	border: 1px solid rgba(255, 255, 255, 0.4);
+	border-radius: 8px;
+	background: #00000091;
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+	margin-inline: auto;
+	font-family: "Roboto";
+	display: flex;
+	flex-wrap: wrap;
+	row-gap: 40px;
+}
+
+/* Title */
+.user-analytics h3 {
+	color: #111827;
+	font-size: 20px;
+	font-weight: 600;
+	margin-bottom: 16px;
+	font-family: Roboto;
+}
+
+/* KPI Cards */
+.kpi-grid {
+	display: flex;
+	flex-wrap: wrap;
+	row-gap: 8px;
+	width: initial;
+	margin-inline: -4px;
+}
+.user-analytics h2.cometchat-user-details__content-title {
+	margin-block: 0;
+  text-align: center;
+  width: 100%;
+}
+.kpi-grid .kpi-card-wrap {
+	padding-inline: 4px;
+	width: 100%;
+	flex: 1;
+	flex-basis: 50%;
+}
+
+.kpi-card {
+	padding: 12px;
+	border: 1px solid #e5e7eb;
+	border-radius: 6px;
+	background: #f9fafb;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	row-gap: 4px;
+	height: 100%;
+	align-content: center;
+}
+
+.kpi-card p {
+	color: #6b7280;
+	font-size: 14px;
+	font-weight: 600;
+  width: 100%;
+}
+
+.kpi-card h3 {
+  width: 100%;
+  font-size: 18px;
+  font-weight: bold;
+  margin-block: 0 ;
+}
+
+/* Notes */
+.kpi-data-notes {
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	row-gap: 16px;
+	flex-direction: column;
+}
+
+.kpi-data-notes h4 {
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.note-item {
+	padding: 16px;
+	border: 1px solid rgba(255, 255, 255, 0.4);
+	border-radius: 8px;
+	background-color: #ffffff;
+	width: 100%;
+	position: relative;
+}
+
+.note-list-wrap {
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	row-gap: 12px;
+}
+
+.note-item p {
+	color: #000000;
+	font-size: 14px;
+	width: 100%;
+	text-align: left;
+	line-height: 140%;
+	color: #000;
+}
+
+.note-item p:last-child {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+/* Add Comment */
+.comment-box {
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	row-gap: 8px;
+}
+
+.kpi-data-notes textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px!important;
+  resize: vertical;
+  font-family: "Roboto";
+  min-height: 100px;
+  line-height: 140%;
+  color: #000;
+}
+
+ .user-analytics .btn-wrap {
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	row-gap: 8px;
+}
+
+.user-analytics .btn-wrap button {
+	max-width: calc(50% - 4px);
+	padding: 6px 12px;
+	color: #ffffff;
+	border: none;
+	border-radius: 6px;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	gap: 3px;
+}
+
+.user-analytics .btn-wrap button {
+	/* background-color: var(--cometchat-primary-color) !important; */
+}
+
+.user-analytics .btn-wrap.note-actions button.btn-edit,
+.user-analytics .btn-wrap.note-actions button.btn-delete:not(.btn-cancel) {
+	/* position: absolute;
+	width: 25px;
+	height: 25px;
+    top: 5px; */
+}
+
+.user-analytics .btn-wrap.note-actions button.btn-edit {
+	right: 60px;
+}
+
+.user-analytics .btn-wrap.note-actions button.btn-delete:not(.btn-cancel),
+.delete-confirmation-content button.btn-delete{
+  background-color: #A61A1C !important;
+  right: 10px;
+}
+
+.delete-confirmation-content button.btn-delete:hover,
+.user-analytics .btn-wrap.note-actions button.btn-delete:not(.btn-cancel):hover,
+.user-analytics .btn-wrap button.btn-delete:hover {
+  background-color: #830708 !important;
+}
+
+.kpi-data-notes button {
+	margin-bottom: 0;
+}
+
+.note-list-wrap:empty {
+	display: none;
+}
+
+/* Purchase History */
+.purchases h4 {
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.purchase-item {
+  padding: 8px;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  background: #f9fafb;
+  margin-bottom: 8px;
+}
+
+.purchase-item p {
+  margin: 0;
+}
+
+.purchase-item .date {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.note-actions {
+  margin-top: 12px;
+  width: 100%;
+}
+
+.user-analytics .btn-wrap button .icon img, .user-analytics .btn-wrap button .icon {
+	width: 20px;
+	height: 20px;
+	object-fit: contain;
+}
+
+/* Add Note Button */
+.add-btn {
+  padding: 6px 12px;
+  background: #10b981 !important;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-bottom: 12px;
+}
+.add-btn:hover {
+  background: #059669;
+}
+
+/* Inline edit textarea */
+.note-item textarea {
+  width: 100%;
+  padding: 6px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  margin-bottom: 6px;
+  font-family: inherit;
+  resize: vertical;
+}
+
+
+
+
+/* START RESPONSIVE DESIGN CODE */
+@media screen and (max-width:1200px) {
+  .user-analytics {
+    padding: 16px;
+  }
+  .kpi-grid .kpi-card-wrap {
+    flex-basis: 100%;
+  }
+}
+@media screen and (max-width:991px) {
+  .user-analytics .btn-wrap button {
+    max-width: 100%;
+  }
+}
+@media screen and (max-width:767px) {
+  .kpi-grid .kpi-card-wrap {
+    flex-basis: 50%;
+  }
+  .user-analytics .btn-wrap button {
+    max-width: calc(50% - 4px);
+  }
+}
+@media screen and (max-width:375px) {
+  .kpi-grid .kpi-card-wrap {
+    flex-basis: 100%;
+  }
+  .user-analytics .btn-wrap button {
+    max-width: 100%;
+  }
+}
+/* END RESPONSIVE DESIGN CODE */
+
+/* Delete Confirmation Modal */
+.delete-confirmation-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.delete-confirmation-content {
+  background: #ffffff;
+  padding: 24px;
+  border-radius: 8px;
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.delete-confirmation-content h3 {
+  color: #dc2626;
+  margin: 0 0 16px 0;
+  font-size: 20px;
+  font-weight: 600;
+  font: var(--cometchat-font-heading2-medium, Roboto);
+}
+
+.delete-confirmation-content p {
+  color: #374151;
+  margin: 0 0 24px 0;
+  line-height: 1.5;
+  font: var(--cometchat-font-heading4-medium, Roboto);
+}
+
+.delete-confirmation-content .btn-wrap {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+.delete-confirmation-content .btn-wrap button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  min-width: 80px;
+}
+
+.delete-confirmation-content .btn-wrap .btn-delete {
+  background: #dc2626;
+  color: white;
+}
+
+.delete-confirmation-content .btn-wrap .btn-delete:hover {
+  background: #b91c1c;
+}
+
+.delete-confirmation-content .btn-wrap .btn-cancel {
+  background: #6b7280;
+  color: white;
+}
+
+.delete-confirmation-content .btn-wrap .btn-cancel:hover {
+  background: #4b5563;
+}

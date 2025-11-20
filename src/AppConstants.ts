@@ -1,0 +1,17 @@
+//Client-Side APP CONSTANTS
+export const COMETCHAT_CONSTANTS = {
+  APP_ID: "275871c28a677607",
+  REGION: "us",
+  AUTH_KEY: "a299e37fd44ceb9b06544d8c3aee7bf6a9fda09a",
+  REST_API_KEY: "a3a0de01f108eea236901133f7271eec745fdc8b",
+  COMET_CHAT_API_VERSION: "v3"
+};
+
+//Our Test APP CONSTANTS
+// export const COMETCHAT_CONSTANTS = {
+//   APP_ID: "2757189d5574f4cf",
+//   REGION: "in",
+//   AUTH_KEY: "6ac70af1b8e3494805af9f39ce8c3bb9a1557f8c",
+//   REST_API_KEY :"6a10111ca8cdc3ad02e50b7d032db950925eae09"
+// COMET_CHAT_API_VERSION:"v3"
+// };

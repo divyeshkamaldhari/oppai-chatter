@@ -1,0 +1,145 @@
+/* Custom Message Header Styles */
+.custom-message-header {
+    display: flex;
+    width: 100%;
+    height: 64px;
+    padding: 8px 16px;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--cometchat-background-color-01, #FFFFFF);
+    border-bottom: 1px solid var(--cometchat-border-color-light, #F5F5F5);
+    box-sizing: border-box;
+}
+
+.custom-message-header__left {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    cursor: pointer;
+    height: 100%;
+}
+
+.custom-message-header__logo {
+    height: 35px;
+    object-fit: contain;
+    transition: opacity 0.2s ease;
+}
+
+.custom-message-header__logo:hover {
+    opacity: 0.8;
+}
+
+.custom-message-header__center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    text-align: center;
+    padding: 0 20px;
+    min-width: 0; /* Allow shrinking */
+}
+
+.custom-message-header__name {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--cometchat-text-color-primary, #141414);
+    margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 100%;
+    cursor: pointer;
+    line-height: 1.2;
+}
+
+.custom-message-header__last-active {
+    font-size: 12px;
+    color: var(--cometchat-text-color-secondary, #727272);
+    margin: 2px 0 0 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 100%;
+    cursor: pointer;
+}
+
+.custom-message-header__right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+}
+
+.custom-message-header__avatar {
+    display: flex;
+    align-items: center;
+}
+
+.custom-message-header__avatar .cometchat-avatar,
+.custom-message-header__avatar .cometchat-avatar__image,
+.custom-message-header__avatar .cometchat-avatar__text {
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+}
+
+.custom-message-header__menu {
+    display: flex;
+    align-items: center;
+}
+
+.custom-message-header__menu .cometchat-header__info {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    -webkit-mask: url("../../assets/infoIcon.svg") center center no-repeat;
+    background: var(--cometchat-icon-color-primary, #141414);
+    -webkit-mask-size: contain;
+    transition: background-color 0.2s ease;
+}
+
+.custom-message-header__menu .cometchat-header__info:hover {
+    background: var(--cometchat-icon-color-highlight, #6852D6);
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 768px) {
+    .custom-message-header {
+        padding: 8px 12px;
+    }
+    
+    .custom-message-header__center {
+        padding: 0 10px;
+    }
+    
+    .custom-message-header__name {
+        font-size: 14px;
+    }
+    
+    .custom-message-header__last-active {
+        font-size: 11px;
+    }
+    
+    .custom-message-header__logo {
+        height: 30px;
+    }
+    
+    .custom-message-header__avatar .cometchat-avatar,
+    .custom-message-header__avatar .cometchat-avatar__image,
+    .custom-message-header__avatar .cometchat-avatar__text {
+        width: 36px;
+        height: 36px;
+    }
+}
+
+/* Ensure the custom header fits within the wrapper */
+.cometchat-header-wrapper .custom-message-header {
+    width: 100%;
+    height: 100%;
+}
+
+/* Hide default CometChat header when using custom header */
+/* .cometchat-header-wrapper .cometchat-message-header {
+    display: none;
+} */

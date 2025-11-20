@@ -1,0 +1,486 @@
+/* Safari-specific compatibility fixes */
+
+/* Fix for Safari viewport height issues */
+@supports (-webkit-touch-callout: none) {
+  .App,
+  .cometchat-root,
+  .conversations-wrapper,
+  .messages-wrapper,
+  .side-component-wrapper {
+    height: -webkit-fill-available !important;
+  }
+}
+
+/* Fix for Safari flexbox issues */
+.cometchat-root,
+.conversations-wrapper,
+.selector-wrapper,
+.messages-wrapper,
+.side-component-wrapper {
+  display: -webkit-box !important;
+  display: -webkit-flex !important;
+  display: -ms-flexbox !important;
+  /* display: flex !important; */
+}
+
+/* Fix for Safari input and button styling */
+input, textarea, select {
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  appearance: none !important;
+  border-radius: 0 !important;
+}
+
+button {
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  appearance: none !important;
+  border: none !important;
+  background: transparent !important;
+}
+
+/* Fix for Safari scrollbar issues */
+*::-webkit-scrollbar {
+  width: 0px !important;
+  background: transparent !important;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: transparent !important;
+}
+
+/* Fix for Safari animation issues */
+@media (prefers-reduced-motion: no-preference) {
+  * {
+    -webkit-animation-fill-mode: both !important;
+    animation-fill-mode: both !important;
+  }
+}
+
+/* Fix for Safari transform issues */
+.cometchat-avatar,
+.cometchat-button,
+.cometchat-list-item {
+  -webkit-transform: translateZ(0) !important;
+  transform: translateZ(0) !important;
+  -webkit-backface-visibility: hidden !important;
+  backface-visibility: hidden !important;
+}
+
+/* Fix for Safari overflow issues */
+.selector-wrapper,
+.messages-wrapper .cometchat-list__body,
+.side-component-content {
+  -webkit-overflow-scrolling: touch !important;
+}
+
+/* Fix for Safari text rendering */
+body {
+  -webkit-text-size-adjust: 100% !important;
+  -webkit-font-smoothing: antialiased !important;
+  -moz-osx-font-smoothing: grayscale !important;
+}
+
+/* Fix for Safari box-sizing issues */
+* {
+  -webkit-box-sizing: border-box !important;
+  -moz-box-sizing: border-box !important;
+  box-sizing: border-box !important;
+}
+
+/* Fix for Safari mask properties */
+[class*="-webkit-mask"] {
+  -webkit-mask-size: contain !important;
+  mask-size: contain !important;
+}
+
+/* Fix for Safari position sticky issues */
+.cometchat-header-wrapper,
+.cometchat-message-header {
+  position: -webkit-sticky !important;
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 10 !important;
+}
+
+/* Fix for Safari touch targets */
+button, [role="button"], .cometchat-button {
+  min-height: 44px !important;
+  min-width: 44px !important;
+}
+
+/* Fix for Safari focus issues */
+input:focus, textarea:focus, select:focus {
+  outline: none !important;
+  -webkit-tap-highlight-color: transparent !important;
+}
+
+/* Fix for Safari image rendering */
+img {
+  -webkit-user-drag: none !important;
+  -khtml-user-drag: none !important;
+  -moz-user-drag: none !important;
+  -o-user-drag: none !important;
+  user-drag: none !important;
+}
+
+/* Fix for Safari selection issues */
+* {
+  -webkit-touch-callout: none !important;
+  -webkit-user-select: none !important;
+  -khtml-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+  user-select: none !important;
+}
+
+/* Allow text selection in input fields */
+input, textarea {
+  -webkit-user-select: text !important;
+  -khtml-user-select: text !important;
+  -moz-user-select: text !important;
+  -ms-user-select: text !important;
+  user-select: text !important;
+}
+
+/* Fix for Safari backdrop filter issues */
+.cometchat-backdrop {
+  -webkit-backdrop-filter: blur(10px) !important;
+  backdrop-filter: blur(10px) !important;
+}
+
+/* Fix for Safari gradient issues */
+.cometchat-gradient {
+  background: -webkit-linear-gradient(45deg, #667eea 0%, #764ba2 100%) !important;
+  background: linear-gradient(45deg, #667eea 0%, #764ba2 100%) !important;
+}
+
+/* Fix for Safari transition issues */
+.cometchat-transition {
+  -webkit-transition: all 0.3s ease !important;
+  transition: all 0.3s ease !important;
+}
+
+/* Fix for Safari filter issues */
+.cometchat-filter {
+  -webkit-filter: blur(5px) !important;
+  filter: blur(5px) !important;
+}
+
+/* Fix for Safari perspective issues */
+.cometchat-perspective {
+  -webkit-perspective: 1000px !important;
+  perspective: 1000px !important;
+}
+
+/* Fix for Safari transform-origin issues */
+.cometchat-transform-origin {
+  -webkit-transform-origin: center center !important;
+  transform-origin: center center !important;
+}
+
+/* Fix for Safari will-change issues */
+.cometchat-will-change {
+  will-change: transform !important;
+  -webkit-will-change: transform !important;
+}
+
+/* Fix for Safari contain issues */
+.cometchat-contain {
+  contain: layout style paint !important;
+  -webkit-contain: layout style paint !important;
+}
+
+/* Fix for Safari isolation issues */
+.cometchat-isolation {
+  isolation: isolate !important;
+  -webkit-isolation: isolate !important;
+}
+
+/* Fix for Safari mix-blend-mode issues */
+.cometchat-blend {
+  mix-blend-mode: multiply !important;
+  -webkit-mix-blend-mode: multiply !important;
+}
+
+/* Fix for Safari clip-path issues */
+.cometchat-clip {
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%) !important;
+  -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%) !important;
+}
+
+/* Fix for Safari shape-outside issues */
+.cometchat-shape {
+  shape-outside: circle(50%) !important;
+  -webkit-shape-outside: circle(50%) !important;
+}
+
+/* Fix for Safari column issues */
+.cometchat-columns {
+  column-count: 2 !important;
+  -webkit-column-count: 2 !important;
+  column-gap: 20px !important;
+  -webkit-column-gap: 20px !important;
+}
+
+/* Fix for Safari grid issues */
+.cometchat-grid {
+  display: -webkit-grid !important;
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)) !important;
+  -webkit-grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)) !important;
+}
+
+/* Fix for Safari aspect-ratio issues */
+.cometchat-aspect-ratio {
+  aspect-ratio: 16 / 9 !important;
+  -webkit-aspect-ratio: 16 / 9 !important;
+}
+
+/* Fix for Safari gap issues */
+.cometchat-gap {
+  gap: 20px !important;
+  -webkit-gap: 20px !important;
+}
+
+/* Fix for Safari logical properties */
+.cometchat-logical {
+  margin-block: 20px !important;
+  -webkit-margin-block: 20px !important;
+  padding-inline: 20px !important;
+  -webkit-padding-inline: 20px !important;
+}
+
+/* Fix for Safari container queries */
+@container (min-width: 400px) {
+  .cometchat-container-query {
+    font-size: 18px !important;
+  }
+}
+
+/* Fix for Safari subgrid issues */
+.cometchat-subgrid {
+  display: -webkit-subgrid !important;
+  display: subgrid !important;
+}
+
+/* Fix for Safari masonry layout */
+.cometchat-masonry {
+  column-count: 3 !important;
+  -webkit-column-count: 3 !important;
+  column-gap: 20px !important;
+  -webkit-column-gap: 20px !important;
+}
+
+/* Fix for Safari CSS custom properties */
+:root {
+  --safari-fix: 1px !important;
+}
+
+.cometchat-custom-property {
+  border: var(--safari-fix) solid black !important;
+}
+
+/* Fix for Safari CSS calc() issues */
+.cometchat-calc {
+  width: calc(100% - 20px) !important;
+  height: calc(100vh - 60px) !important;
+}
+
+/* Fix for Safari CSS clamp() issues */
+.cometchat-clamp {
+  font-size: clamp(16px, 4vw, 24px) !important;
+  width: clamp(200px, 50vw, 400px) !important;
+}
+
+/* Fix for Safari CSS min() and max() issues */
+.cometchat-min-max {
+  width: min(100%, 400px) !important;
+  height: max(200px, 50vh) !important;
+}
+
+/* Fix for Safari CSS logical operators */
+.cometchat-logical-ops {
+  width: calc(100% - 20px) !important;
+  height: calc(100vh - 60px) !important;
+}
+
+/* Fix for Safari CSS color functions */
+.cometchat-color-functions {
+  background-color: rgb(255, 0, 0) !important;
+  color: hsl(0, 100%, 50%) !important;
+  border-color: hwb(0, 0%, 0%) !important;
+}
+
+/* Fix for Safari CSS math functions */
+.cometchat-math {
+  width: calc(100% / 3) !important;
+  height: calc(100vh / 2) !important;
+}
+
+/* Fix for Safari CSS trigonometric functions */
+.cometchat-trig {
+  transform: rotate(sin(45deg)) !important;
+  -webkit-transform: rotate(sin(45deg)) !important;
+}
+
+/* Fix for Safari CSS exponential functions */
+.cometchat-exp {
+  font-size: calc(16px * pow(1.2, 2)) !important;
+}
+
+/* Fix for Safari CSS sign function */
+.cometchat-sign {
+  transform: scale(sign(1)) !important;
+  -webkit-transform: scale(sign(1)) !important;
+}
+
+/* Fix for Safari CSS round function */
+.cometchat-round {
+  width: round(100.7px) !important;
+}
+
+/* Fix for Safari CSS mod function */
+.cometchat-mod {
+  width: calc(100% mod 20px) !important;
+}
+
+/* Fix for Safari CSS rem function */
+.cometchat-rem {
+  width: rem(20px) !important;
+}
+
+/* Fix for Safari CSS em function */
+.cometchat-em {
+  width: em(20px) !important;
+}
+
+/* Fix for Safari CSS ex function */
+.cometchat-ex {
+  width: ex(20px) !important;
+}
+
+/* Fix for Safari CSS ch function */
+.cometchat-ch {
+  width: ch(20) !important;
+}
+
+/* Fix for Safari CSS ic function */
+.cometchat-ic {
+  width: ic(20) !important;
+}
+
+/* Fix for Safari CSS lh function */
+.cometchat-lh {
+  line-height: lh(1.5) !important;
+}
+
+/* Fix for Safari CSS rlh function */
+.cometchat-rlh {
+  line-height: rlh(1.5) !important;
+}
+
+/* Fix for Safari CSS cap function */
+.cometchat-cap {
+  font-size: cap(20px) !important;
+}
+
+/* Fix for Safari CSS ic function */
+.cometchat-ic {
+  font-size: ic(20px) !important;
+}
+
+/* Fix for Safari CSS lh function */
+.cometchat-lh {
+  font-size: lh(20px) !important;
+}
+
+/* Fix for Safari CSS rlh function */
+.cometchat-rlh {
+  font-size: rlh(20px) !important;
+}
+
+/* Fix for Safari CSS cap function */
+.cometchat-cap {
+  font-size: cap(20px) !important;
+}
+
+/* Fix for Safari CSS ch function */
+.cometchat-ch {
+  font-size: ch(20) !important;
+}
+
+/* Fix for Safari CSS em function */
+.cometchat-em {
+  font-size: em(20px) !important;
+}
+
+/* Fix for Safari CSS ex function */
+.cometchat-ex {
+  font-size: ex(20px) !important;
+}
+
+/* Fix for Safari CSS rem function */
+.cometchat-rem {
+  font-size: rem(20px) !important;
+}
+
+/* Fix for Safari CSS vw function */
+.cometchat-vw {
+  width: vw(100) !important;
+}
+
+/* Fix for Safari CSS vh function */
+.cometchat-vh {
+  height: vh(100) !important;
+}
+
+/* Fix for Safari CSS vi function */
+.cometchat-vi {
+  width: vi(100) !important;
+}
+
+/* Fix for Safari CSS vb function */
+.cometchat-vb {
+  height: vb(100) !important;
+}
+
+/* Fix for Safari CSS vmin function */
+.cometchat-vmin {
+  font-size: vmin(20) !important;
+}
+
+/* Fix for Safari CSS vmax function */
+.cometchat-vmax {
+  font-size: vmax(20) !important;
+}
+
+/* Fix for Safari CSS cqw function */
+.cometchat-cqw {
+  width: cqw(100) !important;
+}
+
+/* Fix for Safari CSS cqh function */
+.cometchat-cqh {
+  height: cqh(100) !important;
+}
+
+/* Fix for Safari CSS cqi function */
+.cometchat-cqi {
+  width: cqi(100) !important;
+}
+
+/* Fix for Safari CSS cqb function */
+.cometchat-cqb {
+  height: cqb(100) !important;
+}
+
+/* Fix for Safari CSS cqmin function */
+.cometchat-cqmin {
+  font-size: cqmin(20) !important;
+}
+
+/* Fix for Safari CSS cqmax function */
+.cometchat-cqmax {
+  font-size: cqmax(20) !important;
+} 

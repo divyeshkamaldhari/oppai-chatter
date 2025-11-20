@@ -1,0 +1,341 @@
+@import url('@cometchat/chat-uikit-react/css-variables.css');
+
+/* CSS Custom Properties for mobile viewport handling */
+:root {
+    --vh: 1vh;
+}
+
+/* Safari-specific viewport height fix */
+@supports (-webkit-touch-callout: none) {
+    :root {
+        --vh: calc(var(--vh, 1vh) * 1);
+    }
+}
+
+.scrollbar-hide::-webkit-scrollbar{
+    width: unset;
+}
+
+.scrollbar-hide {
+    scrollbar-width: none;
+}
+
+
+.App {
+    text-align: center;
+    right: 0;
+    margin-bottom: 0;
+    overflow: hidden;
+    width: 100vw;
+    height: 100vh;
+    height: calc(var(--vh, 1vh) * 100);
+    /* Safari-specific height fix */
+    /* height: -webkit-fill-available; */
+    background-color: #282c34;
+    /* Safari-specific fixes */
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    display: flex;
+}
+
+.App-logo {
+    height: 40vmin;
+    pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .App-logo {
+        animation: App-logo-spin infinite 20s linear;
+        -webkit-animation: App-logo-spin infinite 20s linear;
+    }
+}
+
+.App-header {
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+@keyframes App-logo-spin {
+    from {
+        transform: rotate(0deg);
+        -webkit-transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@-webkit-keyframes App-logo-spin {
+    from {
+        -webkit-transform: rotate(0deg);
+    }
+
+    to {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+.cometchat-root {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    overflow: hidden;
+    position: relative;
+    /* Safari-specific flexbox fix */
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+}
+
+.conversations-wrapper {
+    display: flex;
+    width: 30%;
+    max-width: 315px;
+    height: 100vh;
+    height: calc(var(--vh, 1vh) * 100);
+    /* Safari-specific height fix */
+    height: -webkit-fill-available;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0px;
+    flex: 3;
+    background: var(--cometchat-background-color-01, #FFF);
+    /* Safari-specific flexbox fix */
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+}
+
+.selector-wrapper {
+    display: flex;
+    flex: 1;
+    width: 100%;
+    overflow: auto;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0px;
+    background: var(--cometchat-background-color-01, #FFF);
+    /* Safari-specific flexbox fix */
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    /* Safari-specific overflow fix */
+    -webkit-overflow-scrolling: touch;
+    border-right: 1px solid var(--cometchat-border-color-light);
+}
+
+.selector-wrapper .cometchat-list__body {
+    flex: 1;
+    border-right: 1px solid transparent;
+}
+
+.selector-wrapper::-webkit-scrollbar,
+.selector-wrapper::-webkit-scrollbar-thumb {
+    display: none;
+}
+
+.conversations-wrapper .selector-wrapper .cometchat-list {
+    position: relative;
+}
+
+.conversations-wrapper .selector-wrapper .cometchat-list .cometchat-list__header .cometchat-button {
+    height: fit-content;
+    width: fit-content;
+    padding: 0;
+    background: transparent;
+}
+
+.conversations-wrapper .selector-wrapper .cometchat-list .cometchat-list__header-menu {
+    top: 20px;
+}
+
+.selector-wrapper .cometchat-list .cometchat-list__header .cometchat-button .cometchat-button__icon {
+    height: 24px;
+    width: 24px;
+}
+
+.cometchat-incoming-call {
+    top: 17px;
+    left: 30px;
+}
+
+.selector-wrapper .cc-conversations {
+    border: none !important;
+}
+
+.messages-wrapper {
+    width: 40%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 5;
+    background: #130C1E;
+    overflow: hidden;
+    /* Safari-specific flexbox fix */
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+}
+
+.conversations-wrapper .cometchat-list__header-title {
+    border-right: none;
+}
+
+
+.side-component-content__action-item-disabled {
+    cursor: default;
+    pointer-events: none;
+}
+
+.side-component-content__action-item-disabled .side-component-content__action-item-icon {
+    background: var(--cometchat-text-color-disabled, #DCDCDC);
+}
+
+.side-component-content__action-item-disabled .side-component-content__action-item-text {
+    color: var(--cometchat-text-color-disabled, #DCDCDC);
+}
+
+
+
+.oppai-dragon-comet-chat.chat-list {
+	width: 100%;
+}
+
+
+div.cometchat-conversations__trailing-view-badge-count {
+	height: 15px;
+    width: 15px;
+	font-size: 10px;
+	padding: 2px;
+}
+
+
+
+
+
+/* Safari-specific mobile fixes */
+@media (max-width: 768px) {
+    .conversations-wrapper {
+        width: 100vw;
+        max-width: 100%;
+        min-width: 100%;
+        z-index: 1;
+        /* Safari-specific height fix */
+        height: 100vh;
+        height: calc(var(--vh, 1vh) * 100);
+        height: -webkit-fill-available;
+    }
+    .cometchat-root{
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin-bottom: 0;
+        overflow: hidden;
+        /* Safari-specific height fix */
+        height: 100vh;
+        height: calc(var(--vh, 1vh) * 100);
+        height: -webkit-fill-available;
+    }
+    /* .cometchat-message-composer__emoji-keyboard-button .cometchat-popover__content {
+        top: 534.703px !important;
+        left: 100px !important;
+    } */
+}
+
+/* .cometchat-message-composer__emoji-keyboard-button .cometchat-popover__content {
+    top: 534.703px !important;
+    left: 100px !important;
+} */
+
+body{
+    margin: 0;
+    /* Safari-specific body fixes */
+    -webkit-text-size-adjust: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+  
+.App {
+    box-sizing: border-box;
+    margin: 0;
+    /* Safari-specific box-sizing fix */
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    background: #130C1E;
+}
+
+.App > *{
+    box-sizing: border-box;
+    margin: 0;
+    /* Safari-specific box-sizing fix */
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+
+.cometchat-root * {
+    box-sizing: border-box;
+    /* Safari-specific box-sizing fix */
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+
+.cometchat-list__item-wrapper .cometchat-list-item {
+    cursor: pointer;
+    border: transparent;
+    background-color: #141414;
+}
+
+/* Safari-specific input and button fixes */
+input, textarea, select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 0;
+}
+
+button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border: none;
+    background: transparent;
+}
+
+/* Safari-specific scrollbar fixes */
+*::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+    background: transparent;
+}
+
+/* Safari-specific animation fixes */
+@media (prefers-reduced-motion: no-preference) {
+    * {
+        -webkit-animation-fill-mode: both;
+        animation-fill-mode: both;
+    }
+}
+
+.bubble-view__content__text {
+    text-align: start;
+    white-space: pre-wrap; /* Preserve line breaks and wrap text */
+    word-wrap: break-word;
+}
+
+.bubble-view__content {
+    max-width: 80% !important;
+}
+
