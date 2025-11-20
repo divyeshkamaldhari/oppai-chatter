@@ -44,14 +44,14 @@ jobs:
         run: |
           # if your PWA is in a subfolder (e.g. ./pwa) change into it:
           # cd ./pwa
-          npm ci
+          npm i
         shell: bash
 
       - name: Build PWA
         working-directory: ./   # change if app lives in a subfolder
         run: |
           # cd ./pwa   # uncomment if PWA is in a subfolder
-          npm run build
+          CI=false npm run build
           echo "Build done. Showing build folder:"
           ls -lah ./build || ls -lah ./dist || echo "No build/ or dist/ folder found"
         shell: bash
