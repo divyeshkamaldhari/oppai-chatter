@@ -198,7 +198,7 @@ jobs:
       - name: Build PWA
         run: |
           CI=false npm run build
-          ls -lah dist || (echo "dist/ not found" && exit 1)
+          ls -lah build || (echo "build/ not found" && exit 1)
 
       - name: Prepare SSH key & known_hosts
         run: |
@@ -224,12 +224,12 @@ jobs:
           ssh -p "$SSH_PORT" -o StrictHostKeyChecking=no "${{ env.USER }}@${{ env.HOST }}" \
             "mkdir -p '$TARGET' && echo 'Ensured: $TARGET'"
 
-      - name: Rsync dist → remote (deploy)
+      - name: Rsync build → remote (deploy)
         run: |
           SSH_PORT="${{ steps.vars.outputs.ssh_port }}"
           TARGET="${{ steps.vars.outputs.target_path }}"
           RSYNC_SSH="ssh -p $SSH_PORT -o StrictHostKeyChecking=no"
-          rsync -e "$RSYNC_SSH" -avz --delete ./dist/ "${{ env.USER }}@${{ env.HOST }}:$TARGET/"
+          rsync -e "$RSYNC_SSH" -avz --delete ./build/ "${{ env.USER }}@${{ env.HOST }}:$TARGET/"
 
       - name: Cleanup runner
         run: |
