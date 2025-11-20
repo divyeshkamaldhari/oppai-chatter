@@ -1,0 +1,119 @@
+name: Deploy PWA (connect-with-cometchat) to Hostinger (staging)
+
+on:
+  push:
+    branches: [staging]
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy-pwa:
+    runs-on: ubuntu-latest
+
+    env:
+      # Host connection (keep host and user safe if you want them as secrets, here shown inline for parity)
+      HOST: 109.106.254.234
+      USER: u689060721
+      # This secret should contain the **base64 single-line** of the private key (cat id_rsa | base64 | tr -d '\n')
+      KEY_B64: ${{ secrets.HOSTINGER_SSH_KEY }}
+      # SSH port (string)
+      PORT_SECRET: "65002"
+      #   ld will be copied
+      TARGET_BUILD_PATH: /home/u689060721/domains/lightsteelblue-dolphin-977863.hostingersite.com/public_html/wp-content/plugins/connect-with-cometchat
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: List repo files (verify)
+        run: |
+          echo "Repo root contents:"
+          ls -lah
+          echo "Project dirs:"
+          ls -lah ./ || true
+
+      - name: Setup Node.js 21
+        uses: actions/setup-node@v4
+        with:
+          node-version: '21'
+          cache: 'npm'
+
+      - name: Install dependencies
+        working-directory: ./   # change if your react app is in a subfolder
+        run: |
+          # if your PWA is in a subfolder (e.g. ./pwa) change into it:
+          # cd ./pwa
+          npm i
+        shell: bash
+
+      - name: Build PWA
+        working-directory: ./   # change if app lives in a subfolder
+        run: |
+          # cd ./pwa   # uncomment if PWA is in a subfolder
+          npm run build
+          echo "Build done. Showing build folder:"
+          ls -lah ./build || ls -lah ./dist || echo "No build/ or dist/ folder found"
+        shell: bash
+
+      - name: Validate secrets & compute SSH port
+        run: |
+          if [ -z "$KEY_B64" ]; then
+            echo "ERROR: HOSTINGER_SSH_KEY secret missing or empty"
+            exit 1
+          fi
+          if [ -z "$HOST" ] || [ -z "$USER" ]; then
+            echo "ERROR: HOST or USER env missing"
+            exit 1
+          fi
+          PORT="${PORT_SECRET:-65002}"
+          echo "SSH port set to: $PORT"
+          echo "SSH_PORT=$PORT" >> $GITHUB_ENV
+        shell: bash
+
+      - name: Decode private key, start ssh-agent and add host key
+        run: |
+          set -euo pipefail
+          mkdir -p ~/.ssh
+          CLEAN_B64=$(printf '%s' "$KEY_B64" | tr -d '\r')
+          # quick base64 sanity check
+          if ! printf '%s' "$CLEAN_B64" | grep -Eq '^[A-Za-z0-9+/]+={0,2}$'; then
+            echo "ERROR: HOSTINGER_SSH_KEY is not valid base64. Recreate with: cat id_rsa | base64 | tr -d '\n'"
+            exit 1
+          fi
+          printf '%s' "$CLEAN_B64" | base64 --decode > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          eval "$(ssh-agent -s)"
+          ssh-add ~/.ssh/id_rsa
+          # record host key for the custom port
+          ssh-keyscan -p "$SSH_PORT" -H "$HOST" >> ~/.ssh/known_hosts || true
+          echo "SSH key loaded and known_hosts updated for $HOST:$SSH_PORT"
+        shell: bash
+
+      - name: Ensure remote target directory exists
+        run: |
+          ssh -p "$SSH_PORT" -o StrictHostKeyChecking=no "$USER@$HOST" "mkdir -p '$TARGET_BUILD_PATH' && echo 'remote path ensured: $TARGET_BUILD_PATH'"
+        shell: bash
+
+      - name: Rsync build folder to remote (connect-with-cometchat)
+        run: |
+          # if your built folder is `build/` in repo root — use that. If it's somewhere else, update the source path.
+          SOURCE_BUILD="./build/"
+          if [ ! -d "$SOURCE_BUILD" ]; then
+            echo "Build folder $SOURCE_BUILD not found — aborting."
+            ls -lah
+            exit 1
+          fi
+          # use ssh custom port for rsync
+          RSYNC_SSH="ssh -p $SSH_PORT -o StrictHostKeyChecking=no"
+          rsync -e "$RSYNC_SSH" -avz --delete \
+            --exclude='.git' \
+            --exclude='node_modules' \
+            "$SOURCE_BUILD" "$USER@$HOST:$TARGET_BUILD_PATH/"
+        shell: bash
+
+      - name: Finalize & mark pipeline passed
+        run: |
+          echo "Build pushed to $USER@$HOST:$TARGET_BUILD_PATH"
+          echo "PWA deployment pipeline passed."
+        shell: bash
